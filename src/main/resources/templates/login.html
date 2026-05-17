@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso - Presente de Deus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        /* Estilos aplicados diretamente para garantir o novo visual */
+        body.login-page {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            /* Um degradê suave que remete à serenidade/amanhecer, mantendo tons sóbrios */
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            color: #f1c40f; /* Um tom dourado/creme que destaca o segmento */
+            font-size: 1rem;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .content-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            /* Sombra suave e moderna para dar profundidade */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid #f1c40f; /* Detalhe em dourado no topo do card */
+        }
+
+        .card-title {
+            text-align: center;
+            color: #1a252f;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+            background-color: #f8fafc;
+        }
+
+        /* Efeito visual moderno quando o usuário clica no input */
+        .input-field:focus {
+            border-color: #1a252f;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(26, 37, 47, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background-color: #1a252f; /* Azul sacro / escuro */
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(26, 37, 47, 0.2);
+            margin-top: 10px;
+        }
+
+        /* Efeito de hover no botão */
+        .btn-login:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 37, 47, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background-color: #fde8e8;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #f8b4b4;
+        }
+    </style>
+</head>
+<body class="login-page">
+
+<div class="login-container">
+    <div class="header-section">
+        <h1 class="page-title">Presente de Deus</h1>
+        <p class="subtitle">Artigos Religiosos</p>
+    </div>
+
+    <div class="content-card">
+        <h2 class="card-title"> OPERADOR(A)</h2>
+
+        <form th:action="@{/login}" method="post">
+            <div class="input-group">
+                <input type="text" name="login" class="input-field" placeholder="Usuário" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="senha" class="input-field" placeholder="Senha" required>
+            </div>
+            <button type="submit" class="btn-login">Entrar com Fé</button>
+        </form>
+
+        <p th:if="${param.erro}" class="error-message">Credenciais inválidas.</p>
+    </div>
+</div>
+
+</body>
+</html>

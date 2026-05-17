@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Presente de Deus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Estilização moderna e limpa para o Dashboard */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Menu de Navegação Superior Organizado */
+        .nav-bar {
+            background-color: #1a365d; /* Azul Sacro Profundo */
+            padding: 15px 30px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .nav-bar a:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* Container Principal Centrado */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* Card Principal de Boas-Vindas */
+        .welcome-card {
+            background: #ffffff;
+            max-width: 700px;
+            width: 100%;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-top: 8px solid #2b6cb0;
+        }
+
+        /* Título da Loja com Letras Bem Grandes */
+        .store-title {
+            font-size: 3.2rem;
+            color: #1a365d;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* Saudação do Usuário */
+        .welcome-message {
+            font-size: 1.6rem;
+            color: #4a5568;
+            margin-bottom: 45px;
+        }
+
+        .username-highlight {
+            color: #2b6cb0;
+            font-weight: 700;
+        }
+
+        /* Seção de Atalhos Rápidos Centrais */
+        .action-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Botões Grandes de Ação Direta */
+        .btn-dashboard {
+            flex: 1;
+            min-width: 220px;
+            padding: 24px 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            border-radius: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-vendas {
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+
+        .btn-historico {
+            background: linear-gradient(135deg, #007bff, #0069d9);
+        }
+
+        .btn-dashboard:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-icon {
+            font-size: 2.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <a href="/dashboard">Início</a>
+
+    <a href="/produtos" th:if="${session.usuarioLogado.perfil == 'ADMIN'}">Estoque</a>
+
+    <a href="/carrinho">Vendas</a>
+
+    <span th:if="${session.usuarioLogado.perfil == 'ADMIN'}">
+        <a href="/vendas/historico">Relatórios</a>
+    </span>
+
+    <a href="/logout" style="color: #ff4d4d; margin-left: auto;">Sair</a>
+</nav>
+
+<div class="main-container">
+    <div class="welcome-card">
+        <h1 class="store-title">Loja Presente de Deus 🕊️</h1>
+
+        <p class="welcome-message">
+            Seja bem-vindo,
+            <span class="username-highlight" th:text="${session.usuarioLogado.login}">Usuário</span>!
+        </p>
+
+        <div class="action-grid">
+            <a href="/carrinho" class="btn-dashboard btn-vendas">
+                <span class="btn-icon">🛒</span>
+                <span>Ir para o Caixa</span>
+            </a>
+
+            <a href="/vendas/historico" class="btn-dashboard btn-historico">
+                <span class="btn-icon">📋</span>
+                <span>Histórico de Vendas</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

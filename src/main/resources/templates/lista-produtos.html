@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estoque - Presente de Deus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="nav-bar">
+    <a href="/dashboard">Início</a>
+    <a href="/produtos">Estoque</a>
+    <a href="/carrinho">Vendas</a>
+    <a href="/logout">Sair</a>
+</nav>
+
+<div class="main-container">
+    <h1 class="page-title">Gestão de Estoque</h1>
+    <div class="content-card" style="max-width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0; color: var(--azul-sacro);">Catálogo de Itens</h3>
+            <a href="/produtos/novo" class="btn-sacro" th:if="${session.usuarioLogado.perfil == 'ADMIN'}">+ NOVO PRODUTO</a>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Qtd</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${produtos}">
+                <td th:text="${p.nome}">Produto</td>
+                <td th:text="'R$ ' + ${p.preco}">0.00</td>
+                <td th:text="${p.quantidade}">0</td>
+                <td>
+                    <a th:href="@{/produtos/editar/{id}(id=${p.id})}" style="color: var(--azul-sacro);">✏️</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

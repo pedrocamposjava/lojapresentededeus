@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Caixa - Presente de Deus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="nav-bar">
+    <a href="/dashboard">Início</a>
+
+    <a href="/produtos" th:if="${session.usuarioLogado?.perfil == 'ADMIN'}">Estoque</a>
+
+    <a href="/carrinho">Vendas</a>
+    <a href="/logout">Sair</a>
+</nav>
+
+<div class="main-container">
+    <h1 class="page-title">Frente de Caixa</h1>
+    <div class="content-card">
+
+        <form th:action="@{/carrinho/adicionar}" method="post" style="display: flex; gap: 10px; margin-bottom: 20px;">
+
+            <select name="idProduto" style="flex: 2; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white; font-family: inherit;" required>
+                <option value="" disabled selected>Selecione o artigo religioso...</option>
+                <option th:each="p : ${produtos}"
+                        th:value="${p.id}"
+                        th:text="${p.nome} + ' - R$ ' + ${p.preco}">
+                    Bíblia Sagrada - R$ 59.90
+                </option>
+            </select>
+
+            <input type="number" name="quantidade" value="1" min="1" style="flex: 0.5; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" required>
+
+            <button type="submit" class="btn-sacro">ADICIONAR</button>
+        </form>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Preço Unit.</th>
+                <th>Qtd</th>
+                <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${itens}">
+                <td th:text="${item.produto.nome}">Item Exemplo</td>
+                <td th:text="'R$ ' + ${item.produto.preco}">R$ 0.00</td>
+                <td th:text="${item.quantidade}">1</td>
+                <td th:text="'R$ ' + ${item.produto.preco * item.quantidade}">R$ 0.00</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(itens)}">
+                <td colspan="4" style="text-align: center; color: #888; padding: 20px;">O caixa está vazio. Selecione um produto acima para começar! ✨</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: right; margin-top: 20px; font-size: 1.5rem; color: var(--azul-sacro);">
+            <b>Total: R$ <span th:text="${total}">0.00</span></b>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
+
+            <a th:href="@{/carrinho/limpar}" class="btn-sacro" style="flex: 0.3; background: #666; border-color: #666; text-align: center; text-decoration: none; padding: 15px 0; border-radius: 4px; color: white;">
+                LIMPAR CAIXA
+            </a>
+
+            <form th:action="@{/vendas/finalizar}" method="post" style="flex: 1; margin: 0; padding: 0;">
+                <button type="submit" class="btn-sacro" style="width: 100%; padding: 20px; background: #28a745; color: white; border: none; font-size: 1.1rem; cursor: pointer; border-radius: 4px; font-weight: bold;">
+                    FINALIZAR VENDA 🕊️
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
